@@ -8,6 +8,12 @@ use App\Interfaces\Repositories\IBonusRepository;
 use App\Interfaces\Repositories\IBonusService;
 use App\Models\AccountLoaylty;
 
+/**
+ * Сервис для работы с бонусной системой пользователей
+ *
+ * @package App\Interfaces\Services
+ * @author Serdar Durdyev
+ */
 class BonusService implements IBonusService
 {
     private IBonusRepository $bonusRepository;

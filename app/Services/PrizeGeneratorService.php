@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Interfaces\Repositories\IBonusService;
 use App\Interfaces\Repositories\IRewardRepository;
 use App\Interfaces\Repositories\ITypeRewardRepository;
 use App\Interfaces\Services\IPrizeGeneratorService;
@@ -22,13 +23,15 @@ class PrizeGeneratorService implements IPrizeGeneratorService
     private ITypeRewardRepository $typeRewardRepository;
     private IRewardRepository $rewardRepository;
     private IStripeRemoteService $stripeRemoteService;
+    private IBonusService $bonusService;
 
     public function __construct(IRewardRepository $rewardRepository, ITypeRewardRepository $typeRewardRepository,
-                                IStripeRemoteService $stripeRemoteService)
+                                IStripeRemoteService $stripeRemoteService, IBonusService $bonusService)
     {
         $this->rewardRepository = $rewardRepository;
         $this->typeRewardRepository = $typeRewardRepository;
         $this->stripeRemoteService = $stripeRemoteService;
+        $this->bonusService = $bonusService;
     }
 
     /**
@@ -70,7 +73,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
      * @param array|null $paymentInfo Платежная информация в случае если мы хотим получить деньги
      * либо данные, указывающее на количество получаемых подарков
      *
-     * @return array Вернем массив
+     * @return array Вернем массив с результатами создания награды для пользователя
      * @throws \Exception
      */
     public function getPrize(int $currentUserId, int $typeRewardId, ?array $paymentInfo): array
@@ -80,10 +83,20 @@ class PrizeGeneratorService implements IPrizeGeneratorService
             throw new \Exception("Данный тип вознаграждения отсутствует", JsonResponse::HTTP_CONFLICT);
 
         $reward = $this->rewardRepository->getRewardByTypeRewardId($typeRewardId);
-        return $this->initWithDrawReward($reward, $typeRewardId, $paymentInfo);
+        return $this->initWithDrawReward($reward, $typeReward, $currentUserId, $paymentInfo);
     }
 
-    private function initWithDrawReward(?Reward $reward, TypeReward $typeReward, array $paymentInfo): array
+    /**
+     * Инициализация награды для пользователя
+     * @param Reward|null $reward Инициируемая награда
+     * @param TypeReward $typeReward Тип награды
+     * @param int $currentUserId Пользователь, которому даем награду
+     * @param array $paymentInfo Платежная информация
+     * @return array Массив
+     * @throws \Exception
+     */
+    private function initWithDrawReward(?Reward $reward, TypeReward $typeReward,
+                                        int $currentUserId, array $paymentInfo): array
     {
         $moneyTypeRewardId = 1;
         $bonusBallRewardId = 2;
@@ -106,7 +119,22 @@ class PrizeGeneratorService implements IPrizeGeneratorService
                 }
                 case $bonusBallRewardId:
                 {
+                    $this->bonusService->initUserBonusAccount($currentUserId, $paymentInfo['count']);
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
+                    return [
+                        'type_reward_id' => $typeReward->id,
+                        'name' => $typeReward->name,
+                        'count' => $paymentInfo['count']
+                    ];
+                }
+                default:
+                {
+                    $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
+                    return [
+                        'type_reward_id' => $typeReward->id,
+                        'name' => $typeReward->name,
+                        'count' => $paymentInfo['count']
+                    ];
 
                 }
             }
