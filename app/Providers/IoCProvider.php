@@ -12,12 +12,15 @@ use Illuminate\Support\ServiceProvider;
  */
 class IoCProvider extends ServiceProvider
 {
+    protected $defer = false;
+
+
     /**
      * Регистрация инверсии зависимостей
      */
     public function register()
     {
-        $this->app->register(ITypeRewardRepository::class, TypeRewardRepository::class);
+        $this->app->singleton(ITypeRewardRepository::class, TypeRewardRepository::class);
     }
 
     /**
