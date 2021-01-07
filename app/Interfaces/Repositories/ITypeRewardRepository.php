@@ -15,4 +15,6 @@ interface ITypeRewardRepository
     function create(array $data): TypeReward;
 
     function generateRandom(): ?TypeReward;
+
+    function getById(int $id): ?TypeReward;
 }

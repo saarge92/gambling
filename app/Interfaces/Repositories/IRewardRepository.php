@@ -3,6 +3,8 @@
 
 namespace App\Interfaces\Repositories;
 
+use App\Models\Reward;
+
 /**
  * Интерфейс, определяющий репозиторий по работе с сущностью "Награды"
  * @package App\Interfaces\Repositories
@@ -10,5 +12,7 @@ namespace App\Interfaces\Repositories;
  */
 interface IRewardRepository
 {
-    function getRewardByTypeRewardId(int $id);
+    function getRewardByTypeRewardId(int $id): ?Reward;
+
+    function withDrawalCount(Reward &$reward, int $count);
 }

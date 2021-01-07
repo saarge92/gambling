@@ -11,4 +11,6 @@ namespace App\Interfaces\Services;
 interface IPrizeGeneratorService
 {
     function generatePriceService(): iterable;
+
+    function getPrize(int $currentUserId, int $typeRewardId, ?array $paymentInfo);
 }

@@ -34,4 +34,14 @@ class TypeRewardRepository implements ITypeRewardRepository
     {
         return TypeReward::orderByRaw("RAND()")->first();
     }
+
+    /**
+     * Получение типа вознаграждения по id
+     * @param int $id Id типа вознаграждения
+     * @return TypeReward Вернем найденную запись или null
+     */
+    public function getById(int $id): ?TypeReward
+    {
+        return TypeReward::find($id);
+    }
 }
