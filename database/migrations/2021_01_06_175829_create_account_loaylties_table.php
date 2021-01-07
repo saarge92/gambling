@@ -15,6 +15,15 @@ class CreateAccountLoayltiesTable extends Migration
     {
         Schema::create('account_loaylties', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unique()->nullable()
+                ->unsigned();
+            $table->bigInteger('points')->default(0);
+
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('SET NULL')->onUpdate('CASCADE');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
