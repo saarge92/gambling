@@ -13,10 +13,11 @@ class CreateTypeRewardLimitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_reward_limits', function (Blueprint $table) {
+        Schema::create('rewards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('id_type_reward')->unsigned();
             $table->bigInteger('count')->default(3);
+            $table->string('name');
 
             $table->foreign('id_type_reward')->on('type_rewards')->references('id')
                 ->onDelete('NO ACTION')->onUpdate('CASCADE');

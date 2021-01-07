@@ -13,4 +13,6 @@ use App\Models\TypeReward;
 interface ITypeRewardRepository
 {
     function create(array $data): TypeReward;
+
+    function generateRandom(): ?TypeReward;
 }

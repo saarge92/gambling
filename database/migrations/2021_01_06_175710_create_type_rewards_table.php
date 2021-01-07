@@ -15,7 +15,7 @@ class CreateTypeRewardsTable extends Migration
     {
         Schema::create('type_rewards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
 
             $table->softDeletes();
             $table->timestamps();

@@ -19,10 +19,19 @@ class TypeRewardRepository implements ITypeRewardRepository
      * @param array $data Данные для создания записи
      * @return TypeReward Возвращаем созданную записи с типом вознаграждения
      */
-    function create(array $data): TypeReward
+    public function create(array $data): TypeReward
     {
         return TypeReward::create([
             'name' => $data['name']
         ]);
+    }
+
+    /**
+     * Случайным образом получаем тип вознаграждения из таблицы
+     * @return TypeReward|null Найденная или пустая запись из таблицы type_rewards
+     */
+    public function generateRandom(): ?TypeReward
+    {
+        return TypeReward::orderByRaw("RAND()")->first();
     }
 }

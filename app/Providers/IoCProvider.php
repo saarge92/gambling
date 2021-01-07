@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Interfaces\Repositories\ITypeRewardRepository;
+use App\Interfaces\Services\IPrizeGeneratorService;
 use App\Repositories\TypeRewardRepository;
+use App\Services\PrizeGeneratorService;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -21,6 +23,7 @@ class IoCProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(ITypeRewardRepository::class, TypeRewardRepository::class);
+        $this->app->singleton(IPrizeGeneratorService::class, PrizeGeneratorService::class);
     }
 
     /**

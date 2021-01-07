@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AccountLoaylty extends Model
+class Reward extends Model
 {
-    protected $fillable = ['name'];
     use SoftDeletes;
+
+    protected $table = 'rewards';
+
+    protected $fillable = ['name', 'count', 'id_type_reward'];
 }
