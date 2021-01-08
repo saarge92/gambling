@@ -16,7 +16,7 @@ class CreateMoneyRewardCofficientsTable extends Migration
         Schema::create('money_reward_cofficients', function (Blueprint $table) {
             $table->bigInteger('type_reward_from_id')->unsigned();
             $table->bigInteger('type_reward_to_id')->unsigned();
-            $table->bigInteger('coefficient')->default(1);
+            $table->float('coefficient')->default(1);
 
             $table->foreign('type_reward_from_id')->references('id')
                 ->on('type_rewards')->onUpdate('CASCADE')->onDelete('NO ACTION');
