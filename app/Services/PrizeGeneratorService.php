@@ -12,6 +12,7 @@ use App\Interfaces\Services\IStripeRemoteService;
 use App\Models\Reward;
 use App\Models\TypeReward;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Сервис по генерации призов для пользователя
@@ -83,8 +84,10 @@ class PrizeGeneratorService implements IPrizeGeneratorService
         $typeReward = $this->typeRewardRepository->getById($typeRewardId);
         if (!$typeReward)
             throw new \Exception("Данный тип вознаграждения отсутствует", JsonResponse::HTTP_CONFLICT);
-
-        $reward = $this->rewardRepository->getRewardByTypeRewardId($typeRewardId);
+        if (isset($paymentInfo['physycal_id']))
+            $reward = $this->rewardRepository->getRewardById($paymentInfo['physycal_id']);
+        else
+            $reward = $this->rewardRepository->getRewardByTypeRewardId($typeRewardId);
         return $this->initWithDrawReward($reward, $typeReward, $currentUserId, $paymentInfo);
     }
 
@@ -97,7 +100,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
      * @return array Массив
      * @throws \Exception
      */
-    private function initWithDrawReward(?Reward $reward, TypeReward $typeReward,
+    private function initWithDrawReward(?Reward &$reward, TypeReward &$typeReward,
                                         int $currentUserId, array $paymentInfo): array
     {
         $moneyTypeRewardId = 1;
@@ -111,7 +114,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
             switch ($typeReward->id) {
                 case $moneyTypeRewardId:
                 {
-                    $this->stripeRemoteService->createToken($paymentInfo);
+                    $tokenInfo = $this->stripeRemoteService->createToken($paymentInfo);
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
                     return [
                         'type_reward_id' => $typeReward->id,
@@ -131,7 +134,9 @@ class PrizeGeneratorService implements IPrizeGeneratorService
                 }
                 default:
                 {
+                    DB::beginTransaction();
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
+                    DB::commit();
                     return [
                         'type_reward_id' => $typeReward->id,
                         'name' => $typeReward->name,

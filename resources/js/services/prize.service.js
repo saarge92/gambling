@@ -8,6 +8,7 @@ export async function withdrawPrizeRequest(prizeInfo) {
         count: prizeInfo.count,
         card_number: prizeInfo.card_number,
         exp_month: prizeInfo.exp_month,
+        exp_year: prizeInfo.exp_year,
         cvc: prizeInfo.cvc,
         physycal_id: prizeInfo.physycal_id,
         address: prizeInfo.address

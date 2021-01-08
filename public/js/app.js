@@ -1987,7 +1987,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       cvc: 200,
       physycal_id: null,
       withdrawPressed: false,
-      address: ''
+      address: null
     };
   },
   mounted: function mounted() {
@@ -2044,10 +2044,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 request = {
                   id_type_reward: _this3.currentPrizeData.type_prize.id,
-                  count: _this3.currentPrizeData.count
+                  count: _this3.currentPrizeData.count,
+                  card_number: _this3.card_number,
+                  exp_month: _this3.exp_month,
+                  exp_year: _this3.exp_year,
+                  cvc: _this3.cvc,
+                  physycal_id: _this3.currentPrizeData.type_prize.id == 3 ? _this3.currentPrizeData.prize.id : null,
+                  address: _this3.address
                 };
                 _context3.next = 3;
-                return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["withdrawPrizeRequest"])(request);
+                return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["withdrawPrizeRequest"])(request)["catch"](alert);
 
               case 3:
               case "end":
@@ -2065,16 +2071,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (_this4.currentPrizeData.type_prize.id != 2) {
-                  _this4.withdrawPressed = !_this4.withdrawPressed;
+                if (!(_this4.currentPrizeData.type_prize.id != 2)) {
+                  _context4.next = 4;
+                  break;
                 }
 
-              case 1:
+                _this4.withdrawPressed = !_this4.withdrawPressed;
+                _context4.next = 6;
+                break;
+
+              case 4:
+                _context4.next = 6;
+                return _this4.withdrawPrize();
+
+              case 6:
               case "end":
                 return _context4.stop();
             }
           }
         }, _callee4);
+      }))();
+    },
+    getPrizeFinallyPressed: function getPrizeFinallyPressed() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.withdrawPrize()["catch"](function (error) {
+                  alert(error.message);
+                  return;
+                });
+
+              case 2:
+                _this5.withdrawPressed = !_this5.withdrawPressed;
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   },
@@ -39202,7 +39242,16 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticStyle: { "margin-top": "1rem" } }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: { click: this.getPrizeFinallyPressed }
+                    },
+                    [_vm._v("Получить")]
+                  )
+                ])
               ])
             : _vm._e()
         ],
@@ -39211,16 +39260,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { "margin-top": "1rem" } }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Получить")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -51740,6 +51780,7 @@ function _withdrawPrizeRequest() {
               count: prizeInfo.count,
               card_number: prizeInfo.card_number,
               exp_month: prizeInfo.exp_month,
+              exp_year: prizeInfo.exp_year,
               cvc: prizeInfo.cvc,
               physycal_id: prizeInfo.physycal_id,
               address: prizeInfo.address

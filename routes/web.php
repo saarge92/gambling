@@ -27,7 +27,7 @@ Route::post('/prize/generate', [
     'middleware' => 'auth'
 ]);
 
-Route::post('/prize/get', [
+Route::post('/prize/{id}/get', [
     'uses' => 'PrizeController@getGeneratedPrize',
     'middleware' => 'auth'
 ]);

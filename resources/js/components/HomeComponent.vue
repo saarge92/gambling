@@ -34,7 +34,7 @@
                     </div>
 
                     <div style="margin-top:1rem">
-                        <button class="btn btn-primary">Получить</button>
+                        <button class="btn btn-primary" v-on:click="this.getPrizeFinallyPressed">Получить</button>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@ export default {
             cvc: 200,
             physycal_id: null,
             withdrawPressed: false,
-            address: ''
+            address: null
         }
     },
     async mounted() {
@@ -71,14 +71,29 @@ export default {
         async withdrawPrize() {
             const request = {
                 id_type_reward: this.currentPrizeData.type_prize.id,
-                count: this.currentPrizeData.count
+                count: this.currentPrizeData.count,
+                card_number: this.card_number,
+                exp_month: this.exp_month,
+                exp_year: this.exp_year,
+                cvc: this.cvc,
+                physycal_id: this.currentPrizeData.type_prize.id == 3 ? this.currentPrizeData.prize.id : null,
+                address: this.address
             }
-            await withdrawPrizeRequest(request)
+            await withdrawPrizeRequest(request).catch(alert)
         },
         async handleWithdrawPressed() {
             if (this.currentPrizeData.type_prize.id != 2) {
                 this.withdrawPressed = !this.withdrawPressed
+            } else {
+                await this.withdrawPrize()
             }
+        },
+        async getPrizeFinallyPressed() {
+            await this.withdrawPrize().catch((error) => {
+                alert(error.message)
+                return;
+            })
+            this.withdrawPressed = !this.withdrawPressed
         }
     },
     components: {

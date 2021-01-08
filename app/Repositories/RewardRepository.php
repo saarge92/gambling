@@ -39,4 +39,9 @@ class RewardRepository implements IRewardRepository
     {
         return Reward::where(['id_type_reward' => $id])->orderByRaw("RAND()")->first();
     }
+
+    public function getRewardById(int $id): ?Reward
+    {
+        return Reward::find($id);
+    }
 }
