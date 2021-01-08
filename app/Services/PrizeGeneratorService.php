@@ -51,6 +51,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
             if ($reward->count <= 0)
                 return [
                     'type_prize' => $randomTypeReward,
+                    'prize' => $reward,
                     'count' => 0
                 ];
             $count = rand(1, $reward->count);

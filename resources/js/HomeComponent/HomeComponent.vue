@@ -5,13 +5,15 @@
                 <div>Розыгрыш призов</div>
                 <button class="btn btn-danger" v-on:click="getRandomPrize">Розыграть</button>
                 <!-- Prizes -->
-                <div v-if="currentPrizeData" class="prize-info">
-                    <div>Ваш приз : {{this.currentPrizeData.type_prize.name}}</div>
-                    <div v-if="currentPrizeData.prize && currentPrizeData.type_prize.id == 3">
-                        Ваш предмет {{currentPrizeData.prize.name}}
+                <div v-if="this.currentPrizeData" class="prize-info">
+                    <div>Ваш приз : {{ this.currentPrizeData.type_prize.name }}</div>
+
+                    <div v-if="currentPrizeData.type_prize.id == 3">
+                        Ваш предмет {{ currentPrizeData.prize.name }}
                     </div>
-                    <div>Количество : {{this.currentPrizeData.count}}
-                        <span v-if="currentPrizeData.type_prize == 2">$</span> </div>
+
+                    <div>Количество : {{ this.currentPrizeData.count }}
+                        <span v-if="currentPrizeData.type_prize.id == 1">$</span></div>
                 </div>
             </div>
         </div>
@@ -24,7 +26,7 @@ import {getPrize} from "../services/prize.service"
 export default {
     data() {
         return {
-            currentPrizeData: {}
+            currentPrizeData: null
         }
     },
     async mounted() {

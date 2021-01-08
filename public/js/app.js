@@ -1949,11 +1949,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      currentPrizeData: {}
+      currentPrizeData: null
     };
   },
   mounted: function mounted() {
@@ -39009,7 +39011,7 @@ var render = function() {
           [_vm._v("Розыграть")]
         ),
         _vm._v(" "),
-        _vm.currentPrizeData
+        this.currentPrizeData
           ? _c("div", { staticClass: "prize-info" }, [
               _c("div", [
                 _vm._v(
@@ -39017,7 +39019,6 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm.currentPrizeData.prize &&
               _vm.currentPrizeData.type_prize.id == 3
                 ? _c("div", [
                     _vm._v(
@@ -39034,7 +39035,7 @@ var render = function() {
                     _vm._s(this.currentPrizeData.count) +
                     "\n                    "
                 ),
-                _vm.currentPrizeData.type_prize == 2
+                _vm.currentPrizeData.type_prize.id == 1
                   ? _c("span", [_vm._v("$")])
                   : _vm._e()
               ])
