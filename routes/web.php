@@ -22,7 +22,7 @@ Route::get('/home', [
     'middleware' => 'auth'
 ])->name('home');
 
-Route::post('/prize/generate/', [
+Route::post('/prize/generate', [
     'uses' => 'PrizeController@generatePrize',
     'middleware' => 'auth'
 ]);

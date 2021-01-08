@@ -18,10 +18,10 @@ class PrizeController extends Controller
 
     /**
      * Генерация приза для пользователя
-     * @param Request $prizeGenerateRequest Запрос, содержащий данные пользователя
+     * по запросу POST /prize/generate
      * @return JsonResponse Ответ с json данными сгенерированных призов
      */
-    public function generatePrize(Request $prizeGenerateRequest): JsonResponse
+    public function generatePrize(): JsonResponse
     {
         $data = $this->prizeGeneratorService->generatePriceService();
         return response()->json($data, JsonResponse::HTTP_OK);

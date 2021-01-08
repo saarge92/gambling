@@ -21,7 +21,7 @@ class RewardRepository implements IRewardRepository
      */
     public function getRewardByTypeRewardId(int $id): ?Reward
     {
-        return Reward::find($id);
+        return Reward::where(['id_type_reward' => $id])->first();
     }
 
 

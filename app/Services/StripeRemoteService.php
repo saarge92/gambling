@@ -4,7 +4,7 @@
 namespace App\Services;
 
 use App\Interfaces\Services\IStripeRemoteService;
-use Stripe\StripeClient;
+use Stripe\BaseStripeClient;
 
 /**
  * Сервис для удаленного вызовова API платежного сервиса Stripe
@@ -12,9 +12,9 @@ use Stripe\StripeClient;
  */
 class StripeRemoteService implements IStripeRemoteService
 {
-    private StripeClient $stripeClient;
+    private BaseStripeClient $stripeClient;
 
-    public function __construct(StripeClient $stripeClient)
+    public function __construct(BaseStripeClient $stripeClient)
     {
         $this->stripeClient = $stripeClient;
     }
