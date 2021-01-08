@@ -13,4 +13,6 @@ use App\Models\AccountLoaylty;
 interface IBonusService
 {
     function initUserBonusAccount(int $userId, int $count): AccountLoaylty;
+
+    function getUserBonusInfoByUserId(int $userId): ?AccountLoaylty;
 }

@@ -39,4 +39,15 @@ class BonusService implements IBonusService
         $this->bonusRepository->updateUserBonusInfo($existAccountUserLoyalty, $count);
         return $existAccountUserLoyalty;
     }
+
+    /**
+     * Получение информации о бонусах пользователя
+     * по запросу GET
+     * @param int $userId Id пользователя
+     * @return AccountLoaylty|null Вернем найденную запись или пустое значение
+     */
+    public function getUserBonusInfoByUserId(int $userId): ?AccountLoaylty
+    {
+        return $this->bonusRepository->getUserBonusInfoByUserId($userId);
+    }
 }

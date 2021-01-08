@@ -31,3 +31,8 @@ Route::post('/prize/{id}/get', [
     'uses' => 'PrizeController@getGeneratedPrize',
     'middleware' => 'auth'
 ]);
+
+Route::get('/bonus', [
+    'uses' => 'AccountLoyaltyController@getCurrentBonusInfo',
+    'middleware' => 'auth'
+])->name('current_bonus');
