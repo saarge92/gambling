@@ -10,20 +10,20 @@ window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
- * Vue HomeComponent. It will recursively scan this directory for the Vue
- * HomeComponent and automatically register them with their "basename".
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
  *
- * Eg. ./HomeComponent/HomeComponent.vue -> <example-component></example-component>
+ * Eg. ./components/components.vue -> <example-component></example-component>
  */
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('home-component', require('./HomeComponent/HomeComponent.vue').default);
+Vue.component('home-component', require('./components/HomeComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding HomeComponent to this application
+ * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 

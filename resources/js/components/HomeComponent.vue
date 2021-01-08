@@ -4,16 +4,10 @@
             <div class="col-md-8">
                 <div>Розыгрыш призов</div>
                 <button class="btn btn-danger" v-on:click="getRandomPrize">Розыграть</button>
-                <!-- Prizes -->
-                <div v-if="this.currentPrizeData" class="prize-info">
-                    <div>Ваш приз : {{ this.currentPrizeData.type_prize.name }}</div>
+                <prize-component :current-prize-data="currentPrizeData"></prize-component>
 
-                    <div v-if="currentPrizeData.type_prize.id == 3">
-                        Ваш предмет {{ currentPrizeData.prize.name }}
-                    </div>
-
-                    <div>Количество : {{ this.currentPrizeData.count }}
-                        <span v-if="currentPrizeData.type_prize.id == 1">$</span></div>
+                <div>
+                    <button class="btn btn-success">Снять</button>
                 </div>
             </div>
         </div>
@@ -22,6 +16,7 @@
 
 <script>
 import {getPrize} from "../services/prize.service"
+import PrizeComponent from "./partials/PrizeComponent";
 
 export default {
     data() {
@@ -37,6 +32,9 @@ export default {
             this.currentPrizeData = await getPrize()
             console.log(this.currentPrizeData)
         }
+    },
+    components: {
+        'prize-component': PrizeComponent
     }
 }
 </script>
