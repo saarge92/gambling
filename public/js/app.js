@@ -1946,12 +1946,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      currentPrizeData: null
+      currentPrizeData: null,
+      card_number: 4242424242424242,
+      exp_month: 3,
+      exp_year: 2023,
+      cvc: 200,
+      physycal_id: null,
+      withdrawPressed: false,
+      address: ''
     };
   },
   mounted: function mounted() {
@@ -1983,7 +2019,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["getPrize"])();
+                return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["getPrizeRequest"])();
 
               case 2:
                 _this2.currentPrizeData = _context2.sent;
@@ -1995,6 +2031,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    withdrawPrize: function withdrawPrize() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var request;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                request = {
+                  id_type_reward: _this3.currentPrizeData.type_prize.id,
+                  count: _this3.currentPrizeData.count
+                };
+                _context3.next = 3;
+                return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["withdrawPrizeRequest"])(request);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    handleWithdrawPressed: function handleWithdrawPressed() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (_this4.currentPrizeData.type_prize.id != 2) {
+                  _this4.withdrawPressed = !_this4.withdrawPressed;
+                }
+
+              case 1:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   },
@@ -6475,7 +6555,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.prize-info {\n    font-size: 1rem;\n    margin-top: 1rem;\n    letter-spacing: .1rem;\n}\n", ""]);
+exports.push([module.i, "\n.prize-info {\n    font-size: 1rem;\n    margin-top: 1rem;\n    letter-spacing: .1rem;\n}\n.prize-get-info {\n    margin-top: 1.5rem\n}\n", ""]);
 
 // exports
 
@@ -39050,7 +39130,81 @@ var render = function() {
             attrs: { "current-prize-data": _vm.currentPrizeData }
           }),
           _vm._v(" "),
-          _vm._m(0)
+          this.currentPrizeData
+            ? _c("div", { staticStyle: { "margin-top": "1rem" } }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    on: { click: _vm.handleWithdrawPressed }
+                  },
+                  [_vm._v("Снять")]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.withdrawPressed
+            ? _c("div", { staticClass: "prize-get-info" }, [
+                this.currentPrizeData.type_prize.id == 3
+                  ? _c("div", [
+                      _c("div", [_vm._v("Укажите адрес")]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c(
+                          "input",
+                          _vm._b(
+                            {
+                              staticClass: "form-control",
+                              attrs: { type: "text" }
+                            },
+                            "input",
+                            this.address,
+                            false
+                          )
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                this.currentPrizeData.type_prize.id == 1
+                  ? _c("div", [
+                      _c("div", [_vm._v("Номер карты")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: this.card_number }
+                      }),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("Месяц")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: this.exp_month }
+                      }),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("Год")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: this.exp_year }
+                      }),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("CVC")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: this.cvc }
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            : _vm._e()
         ],
         1
       )
@@ -39062,8 +39216,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Снять")])
+    return _c("div", { staticStyle: { "margin-top": "1rem" } }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Получить")])
     ])
   }
 ]
@@ -51527,12 +51681,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./resources/js/services/prize.service.js ***!
   \************************************************/
-/*! exports provided: getPrize */
+/*! exports provided: getPrizeRequest, withdrawPrizeRequest */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPrize", function() { return getPrize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPrizeRequest", function() { return getPrizeRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withdrawPrizeRequest", function() { return withdrawPrizeRequest; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -51541,12 +51696,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function getPrize() {
-  return _getPrize.apply(this, arguments);
+function getPrizeRequest() {
+  return _getPrizeRequest.apply(this, arguments);
 }
 
-function _getPrize() {
-  _getPrize = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+function _getPrizeRequest() {
+  _getPrizeRequest = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
     var response;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
@@ -51566,7 +51721,42 @@ function _getPrize() {
       }
     }, _callee);
   }));
-  return _getPrize.apply(this, arguments);
+  return _getPrizeRequest.apply(this, arguments);
+}
+
+function withdrawPrizeRequest(_x) {
+  return _withdrawPrizeRequest.apply(this, arguments);
+}
+
+function _withdrawPrizeRequest() {
+  _withdrawPrizeRequest = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(prizeInfo) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return axios.post("prize/".concat(prizeInfo.id_type_reward, "/get"), {
+              count: prizeInfo.count,
+              card_number: prizeInfo.card_number,
+              exp_month: prizeInfo.exp_month,
+              cvc: prizeInfo.cvc,
+              physycal_id: prizeInfo.physycal_id,
+              address: prizeInfo.address
+            })["catch"](alert);
+
+          case 2:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.data);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _withdrawPrizeRequest.apply(this, arguments);
 }
 
 /***/ }),

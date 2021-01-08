@@ -13,7 +13,7 @@ class PrizeGenerateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class PrizeGenerateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'count' => 'required|integer',
+            'card_number' => 'nullable|integer',
+            'exp_month' => 'nullable|integer',
+            'exp_year' => 'nullable|integer',
+            'cvc' => 'nullable|integer',
+            'physycal_id' => 'nullable|integer',
+            'address' => 'nullable|string|max:2048'
         ];
     }
 }

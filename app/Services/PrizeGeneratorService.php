@@ -46,7 +46,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
         if (!$randomTypeReward)
             throw new \Exception("Таблица type_rewards пустая, заполните таблицу", JsonResponse::HTTP_CONFLICT);
 
-        $reward = $this->rewardRepository->getRewardByTypeRewardId($randomTypeReward->id);
+        $reward = $this->rewardRepository->getRewardByTypeRewardIdRandomly($randomTypeReward->id);
         if ($reward) {
             if ($reward->count <= 0)
                 return [

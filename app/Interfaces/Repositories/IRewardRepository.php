@@ -15,4 +15,6 @@ interface IRewardRepository
     function getRewardByTypeRewardId(int $id): ?Reward;
 
     function withDrawalCount(Reward &$reward, int $count);
+
+    function getRewardByTypeRewardIdRandomly(int $id): ?Reward;
 }
