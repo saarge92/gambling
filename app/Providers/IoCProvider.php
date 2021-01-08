@@ -4,13 +4,17 @@ namespace App\Providers;
 
 use App\Interfaces\Repositories\IBonusRepository;
 use App\Interfaces\Repositories\IBonusService;
+use App\Interfaces\Repositories\IRewardCoefficientRepository;
 use App\Interfaces\Repositories\IRewardRepository;
 use App\Interfaces\Repositories\ITypeRewardRepository;
+use App\Interfaces\Services\IBonusMoneyExchangeService;
 use App\Interfaces\Services\IPrizeGeneratorService;
 use App\Interfaces\Services\IStripeRemoteService;
 use App\Repositories\BonusRepository;
+use App\Repositories\RewardCoefficientRepository;
 use App\Repositories\RewardRepository;
 use App\Repositories\TypeRewardRepository;
+use App\Services\BonusMoneyExchangeService;
 use App\Services\BonusService;
 use App\Services\PrizeGeneratorService;
 use App\Services\StripeRemoteService;
@@ -39,6 +43,8 @@ class IoCProvider extends ServiceProvider
         $this->app->singleton(IBonusRepository::class, BonusRepository::class);
         $this->app->singleton(IRewardRepository::class, RewardRepository::class);
         $this->app->singleton(IStripeRemoteService::class, StripeRemoteService::class);
+        $this->app->singleton(IBonusMoneyExchangeService::class, BonusMoneyExchangeService::class);
+        $this->app->singleton(IRewardCoefficientRepository::class, RewardCoefficientRepository::class);
     }
 
     /**

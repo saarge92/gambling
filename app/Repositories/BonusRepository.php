@@ -30,17 +30,28 @@ class BonusRepository implements IBonusRepository
     }
 
     /**
-     * @param int $userId
-     * @return AccountLoaylty|null
+     * Получение информации о бонусных данных пользователя
+     * @param int $userId Id пользователя, чей бонус мы ищем
+     * @return AccountLoaylty|null Вернем найденную запись или пустую запись
      */
     public function getUserBonusInfoByUserId(int $userId): ?AccountLoaylty
     {
         return AccountLoaylty::where(['user_id' => $userId])->first();
     }
 
-    function updateUserBonusInfo(AccountLoaylty $accountLoyalty, int $count)
+    /**
+     * Обновление записи о бонусах пользователя
+     * @param AccountLoaylty $accountLoyalty Данные записи бонуса
+     * @param int $count Количество баллов/очков
+     */
+    public function updateUserBonusInfo(AccountLoaylty $accountLoyalty, int $count)
     {
         $accountLoyalty->points = $accountLoyalty->points + $count;
         $accountLoyalty->update();
+    }
+
+    function setUserBonusCount(AccountLoaylty $accountLoaylty, int $count)
+    {
+        $accountLoaylty->points = $count;
     }
 }

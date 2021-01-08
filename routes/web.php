@@ -22,12 +22,12 @@ Route::get('/home', [
     'middleware' => 'auth'
 ])->name('home');
 
-Route::post('/prize/generate', [
+Route::post('/prize/', [
     'uses' => 'PrizeController@generatePrize',
     'middleware' => 'auth'
 ]);
 
-Route::post('/prize/{id}/get', [
+Route::post('/prize/{id}/reward', [
     'uses' => 'PrizeController@getGeneratedPrize',
     'middleware' => 'auth'
 ]);
@@ -36,3 +36,8 @@ Route::get('/bonus', [
     'uses' => 'AccountLoyaltyController@getCurrentBonusInfo',
     'middleware' => 'auth'
 ])->name('current_bonus');
+
+Route::post('/bonus/money', [
+    'uses' => 'AccountLoyaltyController@changeBonusToMoney',
+    'middleware' => 'auth'
+]);

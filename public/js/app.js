@@ -51955,7 +51955,7 @@ function _getPrizeRequest() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return axios.post('prize/generate')["catch"](alert);
+            return axios.post('prize/')["catch"](alert);
 
           case 2:
             response = _context.sent;
@@ -51983,7 +51983,7 @@ function _withdrawPrizeRequest() {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return axios.post("prize/".concat(prizeInfo.id_type_reward, "/get"), {
+            return axios.post("prize/".concat(prizeInfo.id_type_reward, "/reward"), {
               count: prizeInfo.count,
               card_number: prizeInfo.card_number,
               exp_month: prizeInfo.exp_month,

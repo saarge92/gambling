@@ -18,4 +18,6 @@ interface IBonusRepository
     function getUserBonusInfoByUserId(int $userId): ?AccountLoaylty;
 
     function updateUserBonusInfo(AccountLoaylty $accountLoyalty, int $count);
+
+    function setUserBonusCount(AccountLoaylty $accountLoaylty, int $count);
 }
