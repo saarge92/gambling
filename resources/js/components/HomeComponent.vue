@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <message-component :message="this.message"></message-component>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div>Розыгрыш призов</div>
@@ -16,24 +17,24 @@
                     <div v-if="this.currentPrizeData.type_prize.id == 3">
                         <div>Укажите адрес</div>
                         <div>
-                            <input type="text" class="form-control" v-bind="this.address">
+                            <input type="text" required class="form-control" v-bind:value="this.address">
                         </div>
                     </div>
 
                     <!-- Если на лотерее попались деньги -->
                     <div v-if="this.currentPrizeData.type_prize.id == 1">
                         <div>Номер карты</div>
-                        <input type="text" class="form-control" v-bind:value="this.card_number">
+                        <input type="text" class="form-control" required v-bind:value="this.card_number">
                         <div>Месяц</div>
-                        <input type="text" class="form-control" v-bind:value="this.exp_month">
+                        <input type="text" class="form-control" required v-bind:value="this.exp_month">
                         <div>Год</div>
-                        <input type="text" class="form-control" v-bind:value="this.exp_year">
+                        <input type="text" class="form-control" required v-bind:value="this.exp_year">
                         <div>CVC</div>
-                        <input type="text" class="form-control" v-bind:value="this.cvc">
+                        <input type="text" class="form-control" required v-bind:value="this.cvc">
 
                     </div>
 
-                    <div style="margin-top:1rem">
+                    <div style="margin-top:1rem" v-if="this.currentPrizeData.type_prize.id !=2 ">
                         <button class="btn btn-primary" v-on:click="this.getPrizeFinallyPressed">Получить</button>
                     </div>
                 </div>
@@ -46,6 +47,7 @@
 <script>
 import {getPrizeRequest, withdrawPrizeRequest} from "../services/prize.service"
 import PrizeComponent from "./partials/PrizeComponent";
+import SuccessMessage from "./partials/SuccessMessage";
 
 export default {
     data() {
@@ -57,7 +59,8 @@ export default {
             cvc: 200,
             physycal_id: null,
             withdrawPressed: false,
-            address: null
+            address: 'Прага, Карловы Вары',
+            message: ''
         }
     },
     async mounted() {
@@ -86,6 +89,7 @@ export default {
                 this.withdrawPressed = !this.withdrawPressed
             } else {
                 await this.withdrawPrize()
+                this.openModalDialog()
             }
         },
         async getPrizeFinallyPressed() {
@@ -94,10 +98,16 @@ export default {
                 return;
             })
             this.withdrawPressed = !this.withdrawPressed
+        },
+        openModalDialog() {
+            this.message = 'Операция успешно выполнена!'
+            document.getElementById('exampleModal').style.display = "block"
+            document.getElementById("exampleModal").className += "show"
         }
     },
     components: {
-        'prize-component': PrizeComponent
+        'prize-component': PrizeComponent,
+        'message-component': SuccessMessage
     }
 }
 </script>
