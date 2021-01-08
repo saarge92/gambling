@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AccountLoaylty extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['user_id', 'points'];
     use SoftDeletes;
 }

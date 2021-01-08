@@ -36,6 +36,7 @@ class BonusService implements IBonusService
         if (!$existAccountUserLoyalty) {
             return $this->bonusRepository->addUserBonus($userId, $count);
         }
-        return $this->bonusRepository->updateUserBonusInfo($existAccountUserLoyalty, $count);
+        $this->bonusRepository->updateUserBonusInfo($existAccountUserLoyalty, $count);
+        return $existAccountUserLoyalty;
     }
 }

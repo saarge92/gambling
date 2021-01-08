@@ -61,7 +61,7 @@ export default {
         }
     },
     async mounted() {
-        await this.getRandomPrize();
+
     },
     methods: {
         async getRandomPrize() {

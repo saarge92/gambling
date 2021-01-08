@@ -1991,17 +1991,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _this.getRandomPrize();
-
-            case 2:
             case "end":
               return _context.stop();
           }
@@ -2011,7 +2005,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     getRandomPrize: function getRandomPrize() {
-      var _this2 = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -2022,8 +2016,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["getPrizeRequest"])();
 
               case 2:
-                _this2.currentPrizeData = _context2.sent;
-                console.log(_this2.currentPrizeData);
+                _this.currentPrizeData = _context2.sent;
+                console.log(_this.currentPrizeData);
 
               case 4:
               case "end":
@@ -2034,7 +2028,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     withdrawPrize: function withdrawPrize() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var request;
@@ -2043,14 +2037,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 request = {
-                  id_type_reward: _this3.currentPrizeData.type_prize.id,
-                  count: _this3.currentPrizeData.count,
-                  card_number: _this3.card_number,
-                  exp_month: _this3.exp_month,
-                  exp_year: _this3.exp_year,
-                  cvc: _this3.cvc,
-                  physycal_id: _this3.currentPrizeData.type_prize.id == 3 ? _this3.currentPrizeData.prize.id : null,
-                  address: _this3.address
+                  id_type_reward: _this2.currentPrizeData.type_prize.id,
+                  count: _this2.currentPrizeData.count,
+                  card_number: _this2.card_number,
+                  exp_month: _this2.exp_month,
+                  exp_year: _this2.exp_year,
+                  cvc: _this2.cvc,
+                  physycal_id: _this2.currentPrizeData.type_prize.id == 3 ? _this2.currentPrizeData.prize.id : null,
+                  address: _this2.address
                 };
                 _context3.next = 3;
                 return Object(_services_prize_service__WEBPACK_IMPORTED_MODULE_1__["withdrawPrizeRequest"])(request)["catch"](alert);
@@ -2064,25 +2058,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     handleWithdrawPressed: function handleWithdrawPressed() {
-      var _this4 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (!(_this4.currentPrizeData.type_prize.id != 2)) {
+                if (!(_this3.currentPrizeData.type_prize.id != 2)) {
                   _context4.next = 4;
                   break;
                 }
 
-                _this4.withdrawPressed = !_this4.withdrawPressed;
+                _this3.withdrawPressed = !_this3.withdrawPressed;
                 _context4.next = 6;
                 break;
 
               case 4:
                 _context4.next = 6;
-                return _this4.withdrawPrize();
+                return _this3.withdrawPrize();
 
               case 6:
               case "end":
@@ -2093,7 +2087,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     getPrizeFinallyPressed: function getPrizeFinallyPressed() {
-      var _this5 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -2101,13 +2095,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _this5.withdrawPrize()["catch"](function (error) {
+                return _this4.withdrawPrize()["catch"](function (error) {
                   alert(error.message);
                   return;
                 });
 
               case 2:
-                _this5.withdrawPressed = !_this5.withdrawPressed;
+                _this4.withdrawPressed = !_this4.withdrawPressed;
 
               case 3:
               case "end":

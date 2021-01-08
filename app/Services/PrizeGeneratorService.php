@@ -97,7 +97,7 @@ class PrizeGeneratorService implements IPrizeGeneratorService
      * @param TypeReward $typeReward Тип награды
      * @param int $currentUserId Пользователь, которому даем награду
      * @param array $paymentInfo Платежная информация
-     * @return array Массив
+     * @return array Массив c данными
      * @throws \Exception
      */
     private function initWithDrawReward(?Reward &$reward, TypeReward &$typeReward,
@@ -110,40 +110,48 @@ class PrizeGeneratorService implements IPrizeGeneratorService
             $differenceAfterWithdrawal = $reward->count - $paymentInfo['count'];
             if ($differenceAfterWithdrawal < 0)
                 throw new \Exception("Невозможно снять количество, превышающее лимит!", JsonResponse::HTTP_CONFLICT);
+        }
 
-            switch ($typeReward->id) {
-                case $moneyTypeRewardId:
-                {
-                    $tokenInfo = $this->stripeRemoteService->createToken($paymentInfo);
+        switch ($typeReward->id) {
+            case $moneyTypeRewardId:
+            {
+                $tokenInfo = $this->stripeRemoteService->createToken($paymentInfo);
+                if ($reward)
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
-                    return [
-                        'type_reward_id' => $typeReward->id,
-                        'name' => $typeReward->name,
-                        'count' => $paymentInfo['count']
-                    ];
-                }
-                case $bonusBallRewardId:
-                {
-                    $this->bonusService->initUserBonusAccount($currentUserId, $paymentInfo['count']);
+                return [
+                    'type_reward_id' => $typeReward->id,
+                    'name' => $typeReward->name,
+                    'count' => $paymentInfo['count']
+                ];
+            }
+            case $bonusBallRewardId:
+            {
+                DB::beginTransaction();
+                $this->bonusService->initUserBonusAccount($currentUserId, $paymentInfo['count']);
+
+                if ($reward)
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
-                    return [
-                        'type_reward_id' => $typeReward->id,
-                        'name' => $typeReward->name,
-                        'count' => $paymentInfo['count']
-                    ];
-                }
-                default:
-                {
+                DB::commit();
+
+                return [
+                    'type_reward_id' => $typeReward->id,
+                    'name' => $typeReward->name,
+                    'count' => $paymentInfo['count']
+                ];
+            }
+            default:
+            {
+                if ($reward) {
                     DB::beginTransaction();
                     $this->rewardRepository->withDrawalCount($reward, $paymentInfo['count']);
                     DB::commit();
-                    return [
-                        'type_reward_id' => $typeReward->id,
-                        'name' => $typeReward->name,
-                        'count' => $paymentInfo['count']
-                    ];
-
                 }
+                return [
+                    'type_reward_id' => $typeReward->id,
+                    'name' => $typeReward->name,
+                    'count' => $paymentInfo['count']
+                ];
+
             }
         }
     }
