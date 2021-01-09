@@ -13,7 +13,7 @@ class BonusToMoneyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class BonusToMoneyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'card_number' => 'integer',
+            'exp_month' => 'integer',
+            'exp_year' => 'integer',
+            'cvc' => 'integer',
         ];
     }
 }

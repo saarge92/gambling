@@ -32,7 +32,7 @@ class BonusMoneyExchangeService implements IBonusMoneyExchangeService
      * Обмениваем бонусы пользователя
      * @param int $userId Id пользователя, чьи данные мы хотим обменять
      * @param array $paymentInfo Данные платежной информации
-     * @return \App\Models\AccountLoaylty Вернем обновленную запись с данными бонусов пользователя
+     * @return array Вернем массив с данными
      * @throws \Exception
      */
     function exchangeBonusToMoney(int $userId, array $paymentInfo)
@@ -52,7 +52,11 @@ class BonusMoneyExchangeService implements IBonusMoneyExchangeService
             throw new \Exception("Данных коэффициента по обмену отсутствует", JsonResponse::HTTP_CONFLICT);
 
         $this->stripeRemoteService->createToken($paymentInfo);
+        $moneyWithdraw = $accountLoyalty->points * $coefficientInfo->coefficient;
         $this->bonusRepository->setUserBonusCount($accountLoyalty, 0);
-        return $accountLoyalty;
+        return [
+            'account_loaylty' => $accountLoyalty,
+            'money' => $moneyWithdraw
+        ];
     }
 }

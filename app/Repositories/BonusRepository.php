@@ -50,8 +50,14 @@ class BonusRepository implements IBonusRepository
         $accountLoyalty->update();
     }
 
+    /**
+     * Установка количества баллов для аккаунта бонусов пользователя
+     * @param AccountLoaylty $accountLoaylty Данные бонусов пользователя
+     * @param int $count Количество устанавливаемых баллов
+     */
     function setUserBonusCount(AccountLoaylty $accountLoaylty, int $count)
     {
         $accountLoaylty->points = $count;
+        $accountLoaylty->update();
     }
 }
