@@ -2180,7 +2180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _this3.withdrawPressed = !_this3.withdrawPressed;
-                _context4.next = 7;
+                _context4.next = 9;
                 break;
 
               case 4:
@@ -2188,9 +2188,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this3.withdrawPrize();
 
               case 6:
+                _this3.message = 'Операция успешно выполнена!';
+                _this3.currentPrizeData = null;
+
                 _this3.openModalDialog();
 
-              case 7:
+              case 9:
               case "end":
                 return _context4.stop();
             }
@@ -2214,8 +2217,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _this4.withdrawPressed = !_this4.withdrawPressed;
+                _this4.message = 'Операция успешно выполнена';
+                _this4.currentPrizeData = null;
 
-              case 3:
+                _this4.openModalDialog();
+
+              case 6:
               case "end":
                 return _context5.stop();
             }
@@ -2224,7 +2231,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     openModalDialog: function openModalDialog() {
-      this.message = 'Операция успешно выполнена!';
       document.getElementById('exampleModal').style.display = "block";
       document.getElementById("exampleModal").className += "show";
     }

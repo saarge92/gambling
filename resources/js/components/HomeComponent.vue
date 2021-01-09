@@ -89,6 +89,8 @@ export default {
                 this.withdrawPressed = !this.withdrawPressed
             } else {
                 await this.withdrawPrize()
+                this.message = 'Операция успешно выполнена!'
+                this.currentPrizeData = null
                 this.openModalDialog()
             }
         },
@@ -98,9 +100,11 @@ export default {
                 return;
             })
             this.withdrawPressed = !this.withdrawPressed
+            this.message = 'Операция успешно выполнена'
+            this.currentPrizeData = null;
+            this.openModalDialog();
         },
         openModalDialog() {
-            this.message = 'Операция успешно выполнена!'
             document.getElementById('exampleModal').style.display = "block"
             document.getElementById("exampleModal").className += "show"
         }
