@@ -1999,7 +1999,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.openModalDialog();
 
-              case 7:
+                document.getElementById("bonus_info").textContent = "Ваш бонус 0";
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -39320,7 +39322,7 @@ var render = function() {
       _c(
         "button",
         { staticClass: "btn btn-danger", on: { click: _vm.showMoneyWithdraw } },
-        [_vm._v("Обменять деньги")]
+        [_vm._v("Обменять на деньги")]
       ),
       _vm._v(" "),
       this.isChangeButtonPressed

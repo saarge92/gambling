@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                Ваш бонус {{ $bonus }}
+                <div id="bonus_info"> Ваш бонус {{ $bonus }}</div>
                 <withdraw-bonus></withdraw-bonus>
             </div>
         </div>

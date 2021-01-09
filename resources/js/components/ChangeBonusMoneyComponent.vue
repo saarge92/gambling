@@ -1,7 +1,7 @@
 <template>
     <div>
         <success-message :message="this.message"></success-message>
-        <button class="btn btn-danger" v-on:click="showMoneyWithdraw">Обменять деньги</button>
+        <button class="btn btn-danger" v-on:click="showMoneyWithdraw">Обменять на деньги</button>
         <!-- Если на лотерее попались деньги -->
         <div v-if="this.isChangeButtonPressed">
             <div>Номер карты</div>
@@ -56,6 +56,7 @@ export default {
             this.isChangeButtonPressed = !this.isChangeButtonPressed;
             this.message = `Вам перечислено ${response.money} $`
             this.openModalDialog()
+            document.getElementById("bonus_info").textContent = "Ваш бонус 0"
         },
         openModalDialog() {
             document.getElementById('exampleModal').style.display = "block"
