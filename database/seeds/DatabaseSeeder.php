@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(TypeRewardSeeder::class);
         $this->call(RewardSeeder::class);
+        $this->call(CoefficientSeeder::class);
     }
 }
