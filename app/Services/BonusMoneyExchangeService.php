@@ -8,6 +8,7 @@ use App\Interfaces\Repositories\IRewardCoefficientRepository;
 use App\Interfaces\Services\IBonusMoneyExchangeService;
 use App\Interfaces\Services\IStripeRemoteService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Сервис для работы с обменом бонусов на деньги
@@ -53,7 +54,11 @@ class BonusMoneyExchangeService implements IBonusMoneyExchangeService
 
         $this->stripeRemoteService->createToken($paymentInfo);
         $moneyWithdraw = $accountLoyalty->points * $coefficientInfo->coefficient;
+
+        DB::beginTransaction();
         $this->bonusRepository->setUserBonusCount($accountLoyalty, 0);
+        DB::commit();
+
         return [
             'account_loyalty' => $accountLoyalty,
             'money' => $moneyWithdraw

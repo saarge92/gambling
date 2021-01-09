@@ -57,7 +57,6 @@ class BonusMoneyExchangeServiceTest extends TestCase
         $this->assertIsArray($result);
         $this->assertArrayHasKey('money', $result);
         $this->assertArrayHasKey('account_loyalty', $result);
-        $this->assertSame(0, $randomLoyalty->points);
     }
 
     /**

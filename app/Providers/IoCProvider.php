@@ -38,7 +38,7 @@ class IoCProvider extends ServiceProvider
     {
         $this->app->singleton(ITypeRewardRepository::class, TypeRewardRepository::class);
         $this->app->singleton(IPrizeGeneratorService::class, PrizeGeneratorService::class);
-        $this->app->instance(BaseStripeClient::class, new StripeClient(env('STRIPE_API_KEY')));
+        $this->app->instance(BaseStripeClient::class, new StripeClient(env('STRIPE_API_KEY', 'something')));
         $this->app->singleton(IBonusService::class, BonusService::class);
         $this->app->singleton(IBonusRepository::class, BonusRepository::class);
         $this->app->singleton(IRewardRepository::class, RewardRepository::class);
