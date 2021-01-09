@@ -55,7 +55,7 @@ class BonusMoneyExchangeService implements IBonusMoneyExchangeService
         $moneyWithdraw = $accountLoyalty->points * $coefficientInfo->coefficient;
         $this->bonusRepository->setUserBonusCount($accountLoyalty, 0);
         return [
-            'account_loaylty' => $accountLoyalty,
+            'account_loyalty' => $accountLoyalty,
             'money' => $moneyWithdraw
         ];
     }
